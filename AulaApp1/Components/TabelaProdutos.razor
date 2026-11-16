@@ -1,0 +1,14 @@
+<table class="table table-striped">
+    <thead><tr><th>Nome</th><th>Preço</th><th>Quantidade</th></tr></thead>
+    <tbody>
+        @foreach (var produto in Produtos)
+        {
+            <tr><td>@produto.Nome</td><td>R$@produto.Preco</td><td>@produto.Quantidade un.</td></tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public List<Produto> Produtos { get; set; } = [];
+}
