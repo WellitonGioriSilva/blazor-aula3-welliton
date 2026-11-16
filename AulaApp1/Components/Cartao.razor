@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-header">@Titulo</div>
+    <div class="card-body">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Titulo { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

@@ -3,48 +3,27 @@
 <h3>Produtos</h3>
 <div class="row">
     <div class="col-md-4">
-        <div class="card card-body">
-            <EditForm Model="produtoEmEdicao" OnValidSubmit="AdicionarProduto">
-                <DataAnnotationsValidator />
-                <label class="form-label">Nome</label>
-                <InputText class="form-control" @bind-Value="produtoEmEdicao.Nome" />
-                <ValidationMessage For="() => produtoEmEdicao.Nome" />
-                <label class="form-label">Preço</label>
-                <InputNumber class="form-control" @bind-Value="produtoEmEdicao.Preco" />
-                <ValidationMessage For="() => produtoEmEdicao.Preco" />
-                <label class="form-label">Quantidade</label>
-                <InputNumber class="form-control" @bind-Value="produtoEmEdicao.Quantidade" />
-                <button class="btn btn-primary" type="submit">Adicionar produto</button>
-            </EditForm>
-        </div>
+        <Cartao Titulo="Cadastrar produto">
+            <FormProduto AoAdicionar="AdicionarProduto" />
+        </Cartao>
     </div>
     <div class="col-md-8">
-        <table class="table table-striped">
-            <thead><tr><th>Nome</th><th>Preço</th><th>Quantidade</th></tr></thead>
-            <tbody>
-                @if (produtos.Count == 0)
-                {
-                    <tr><td class="text-muted" colspan="3">Nenhum produto cadastrado</td></tr>
-                }
-                else
-                {
-                    @foreach (var p in produtos)
-                    {
-                        <tr><td>@p.Nome</td><td>R$@p.Preco</td><td>@p.Quantidade un.</td></tr>
-                    }
-                }
-            </tbody>
-        </table>
+        @if (produtos.Count > 0)
+        {
+            <TabelaProdutos Produtos="produtos" />
+        }
+        else
+        {
+            <AvisoErro Mensagem="Nenhum produto cadastrado." />
+        }
     </div>
 </div>
 
 @code {
     private List<Produto> produtos = new();
-    private Produto produtoEmEdicao = new();
 
-    private void AdicionarProduto()
+    private void AdicionarProduto(Produto produto)
     {
-        produtos.Add(produtoEmEdicao);
-        produtoEmEdicao = new Produto();
+        produtos.Add(produto);
     }
 }
